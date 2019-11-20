@@ -4,12 +4,18 @@ import(
 	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
+	"regexp"
 )
 func main(){
 
 	fmt.Println("Starting")
-	http.HandleFunc("/Home/{string:[a-zA-z]+}",home)
-	err := http.ListenAndServe(":8081",nil)
+
+	router := mux.NewRouter()
+
+	router.HandleFunc("/Home/{string:[a-zA-Z]+}",home)
+	router.HandleFunc("/Home/{string:[0-9]+}",err1)
+	//http.HandleFunc("/Home/{string:[a-zA-Z]+}",home)
+	err := http.ListenAndServe(":8081",router)
 	if err != nil{
 		panic(err)
 	}
@@ -20,5 +26,18 @@ func home(w http.ResponseWriter, r *http.Request){
 	vars := mux.Vars(r)
 	res := vars["string"]
 
+
+
 	fmt.Println(res)
+}
+func err1(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	res := vars["string"]
+	
+	rp,_ := regexp.MatchString("[0-9]+",res)
+	if rp == true{
+		fmt.Fprintln(w , "Error")
+	}
+
+	
 }
