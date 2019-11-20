@@ -22,7 +22,7 @@ func main() {
 
 	router := mux.NewRouter()
 
-	router.HandleFunc("/book/{string:[0-9]+} ", Home)
+	router.HandleFunc("/book/{string:[a-zA-Z0-9]+}", Home)
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 
@@ -55,7 +55,7 @@ func Home(w http.ResponseWriter , r *http.Request) {
 		fmt.Println(err)
 	}
 
-	fmt.Println(val)
+	fmt.Fprintln(w,(val))
 
 
 
