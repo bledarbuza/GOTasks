@@ -23,6 +23,12 @@ func main() {
 
 	router.HandleFunc("/0.html", html0)
 	router.HandleFunc("/1.html", html1)
+	router.HandleFunc("/2.html", html2)
+	router.HandleFunc("/3.html", html3)
+	router.HandleFunc("/4.html", html4)
+	router.HandleFunc("/5.html", html5)
+	router.HandleFunc("/6.html", html6)
+	router.HandleFunc("/7.html", html7)
 
 	log.Fatal(http.ListenAndServe(":8000", router))
 
@@ -38,6 +44,31 @@ func html1(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "1.html")
 	c("1.html")
 }
+func html2(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "2.html")
+	c("2.html")
+}
+func html3(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "3.html")
+	c("3.html")
+}
+func html4(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "4.html")
+	c("4.html")
+}
+func html5(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "5.html")
+	c("5.html")
+}
+func html6(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "6.html")
+	c("6.html")
+}
+func html7(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "7.html")
+	c("7.html")
+}
+
 
 func c(url string) {
 	// Make HTTP request
@@ -56,4 +87,6 @@ func c(url string) {
 	// Find all links and process them with the function
 	// defined earlier
 	document.Find("a").Each(processElement)
+
+
 }
