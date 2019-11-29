@@ -1,23 +1,25 @@
 package main
 
 import(
+	"flag"
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"net/url"
+)
+var (
+
+	svar string
 )
 
-// This will get called for each HTML element found
-func processElement(index int, element *goquery.Selection) {
-	// See if the href attribute exists on the element
-	href, exists := element.Attr("href")
-	if exists {
-		fmt.Println(href)
-	}
-}
-
 func main() {
+
+	//Value vendoset tek &svar
+	flag.StringVar(&svar, "crawlgc-url", "", "a string var")
+	flag.Parse()
+
 
 	router := mux.NewRouter()
 
@@ -36,17 +38,35 @@ func main() {
 
 func html0(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "0.html")
+	url,_ := url.Parse(svar)
+	//fmt.Fprintln(w,r,"0.html")
+	if url.Path == "/0.html"{
+		c(svar)
+	}
 
 	c("0.html")
+	//for i := 0; i < len(href1); i++ {
+		//fmt.Fprint(w, href1[i])
+	//}
 
 }
+
+
 func html1(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "1.html")
+
+
+	url,_ := url.Parse(svar)
+	if url.Path == "/1.html" {
+		c(svar)
+	}
 	c("1.html")
+
 }
 func html2(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "2.html")
 	c("2.html")
+
 }
 func html3(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "3.html")
@@ -67,6 +87,7 @@ func html6(w http.ResponseWriter, r *http.Request) {
 func html7(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "7.html")
 	c("7.html")
+
 }
 
 
@@ -89,4 +110,16 @@ func c(url string) {
 	document.Find("a").Each(processElement)
 
 
+}
+// This will get called for each HTML element found
+func processElement(index int, element *goquery.Selection) {
+	// See if the href attribute exists on the element
+	href, exists := element.Attr("href")
+
+	if exists {
+	//href1 = append(href1,href)
+		fmt.Println(href)
+
+
+	}
 }
